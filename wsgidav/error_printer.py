@@ -106,14 +106,6 @@ class ErrorPrinter(BaseMiddleware):
                 yield b""
                 return
 
-            if (
-                 e.context_info
-                 and e.context_info.get("text") is not None
-                 and e.context_info["is_header_method"]
-            ):
-                yield b""
-                return
-
             # If exception has pre-/post-condition: return as XML response,
             # else return as HTML
             content_type, body = e.get_response_page()
@@ -128,5 +120,14 @@ class ErrorPrinter(BaseMiddleware):
                 ]
                 + headers,
             )
+
+            if (
+                 e.context_info
+                 and e.context_info.get("is_head_method") is not None
+                 and e.context_info["is_head_method"]
+            ):
+                yield b""
+                return
+
             yield body
             return
