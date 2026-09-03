@@ -230,7 +230,7 @@ class DAVError(Exception):
             s = f"{self.value}"
 
         if self.context_info and self.context_info.get("text") is not None:
-            s += f": {self.context_info.text}"
+            s += f": {self.context_info["text"]}"
         elif self.value in ERROR_RESPONSES:
             s += f": {ERROR_RESPONSES[self.value]}"
 

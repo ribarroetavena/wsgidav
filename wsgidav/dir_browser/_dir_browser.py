@@ -146,7 +146,7 @@ class WsgiDavDirBrowser(BaseMiddleware):
 
     def _fail(self, value, context_info_text=None, src_exception=None, err_condition=None):
         """Wrapper to raise (and log) DAVError."""
-        e = DAVError(value, context_info={"text": context_info_text}, src_exception, err_condition)
+        e = DAVError(value, context_info={"text": context_info_text}, src_exception=src_exception, err_condition=err_condition)
         if self.verbose >= 4:
             _logger.warning(
                 f"Raising DAVError {safe_re_encode(e.get_user_info(), sys.stdout.encoding)}"
