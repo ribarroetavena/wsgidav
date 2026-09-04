@@ -19,7 +19,9 @@
 
 ## 4.3.6 / Unreleased
 
-- [#365](https://github.com/mar10/wsgidav/pull/366)
+- [#369](https://github.com/mar10/wsgidav/pull/369)
+  do_LOCK sends invalid Content-Type and Lock header
+- [#365](https://github.com/mar10/wsgidav/pull/365)
   CORS: Access-Control-Expose-Headers is sent on the preflight response instead of the actual response (@padawan)
 
 ## 4.3.5 / 2026-06-27
