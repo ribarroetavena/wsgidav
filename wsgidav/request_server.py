@@ -1277,12 +1277,13 @@ class RequestServer:
             respcode = "201 Created"
 
         xml = xml_tools.xml_to_bytes(prop_el)
+        lock_token = lock["token"]
         start_response(
             respcode,
             [
-                ("Content-Type", "application; charset=utf-8"),
+                ("Content-Type", "application/xml; charset=utf-8"),
                 ("Content-Length", str(len(xml))),
-                ("Lock-Token", lock["token"]),
+                ("Lock-Token", f"<{lock_token}>"),
                 ("Date", util.get_rfc1123_time()),
             ],
         )
