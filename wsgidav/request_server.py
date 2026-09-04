@@ -1280,7 +1280,7 @@ class RequestServer:
         start_response(
             respcode,
             [
-                ("Content-Type", "application; charset=utf-8"),
+                ("Content-Type", "application/xml; charset=utf-8"),
                 ("Content-Length", str(len(xml))),
                 ("Lock-Token", lock["token"]),
                 ("Date", util.get_rfc1123_time()),
