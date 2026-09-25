@@ -1525,9 +1525,10 @@ class RequestServer:
             self._fail(
                 HTTP_MEDIATYPE_NOT_SUPPORTED,
                 "The server does not handle any body content.",
+                is_head_method=is_head_method,
             )
         elif environ.setdefault("HTTP_DEPTH", "0") != "0":
-            self._fail(HTTP_BAD_REQUEST, "Only Depth: 0 supported.")
+            self._fail(HTTP_BAD_REQUEST, "Only Depth: 0 supported.", is_head_method=is_head_method)
         elif res is None:
             self._fail(HTTP_NOT_FOUND, path, is_head_method=is_head_method)
         elif res.is_collection:
@@ -1536,6 +1537,7 @@ class RequestServer:
                 "Directory browsing is not enabled."
                 "(to enable it add WsgiDavDirBrowser to the middleware_stack "
                 "option and set dir_browser.enabled = True option.)",
+                is_head_method=is_head_method,
             )
 
         self._evaluate_if_headers(res, environ)
@@ -1584,7 +1586,7 @@ class RequestServer:
             )
             if len(list_ranges) == 0:
                 # No valid ranges present
-                self._fail(HTTP_RANGE_NOT_SATISFIABLE, "No valid ranges present")
+                self._fail(HTTP_RANGE_NOT_SATISFIABLE, "No valid ranges present", is_head_method=is_head_method)
 
             # More than one range present -> take only the first range, since
             # multiple range returns require multipart, which is not supported

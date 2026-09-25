@@ -123,8 +123,7 @@ class ErrorPrinter(BaseMiddleware):
 
             if (
                  e.context_info
-                 and e.context_info.get("is_head_method") is not None
-                 and e.context_info["is_head_method"]
+                 and e.context_info.get("is_head_method")
             ):
                 yield b""
                 return
