@@ -151,13 +151,14 @@ class RequestServer:
                 app_iter.close()
         return
 
-    def _fail(self, value, context_info_text=None, src_exception=None, err_condition=None, is_head_method=False):
+    def _fail(self, value, context_info=None, src_exception=None, err_condition=None, is_head_method=False):
         """Wrapper to raise (and log) DAVError."""
         util.fail(
             value,
-            context_info={"text": context_info_text, "is_head_method": is_head_method},
+            context_info=context_info,
             src_exception=src_exception,
             err_condition=err_condition,
+            add_body=not is_head_method,
         )
 
     def _send_response(
@@ -1504,12 +1505,12 @@ class RequestServer:
         return [b""]
 
     def do_GET(self, environ, start_response):
-        return self._send_resource(environ, start_response, is_head_method=False)
+        return self._send_resource(environ, start_response)
 
     def do_HEAD(self, environ, start_response):
         return self._send_resource(environ, start_response, is_head_method=True)
 
-    def _send_resource(self, environ, start_response, is_head_method):
+    def _send_resource(self, environ, start_response, is_head_method=False):
         """
         If-Range
             If the entity is unchanged, send me the part(s) that I am missing;

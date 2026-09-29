@@ -205,6 +205,7 @@ class DAVError(Exception):
         src_exception=None,
         err_condition=None,
         add_headers=None,
+        add_body=True,
     ):
         # allow passing of Pre- and Postconditions, see
         # http://www.webdav.org/specs/rfc4918.html#precondition.postcondition.xml.elements
@@ -218,6 +219,7 @@ class DAVError(Exception):
         assert (
             self.err_condition is None or type(self.err_condition) is DAVErrorCondition
         )
+        self.add_body = add_body
 
     def __repr__(self):
         return f"DAVError({self.get_user_info()})"
@@ -229,8 +231,8 @@ class DAVError(Exception):
         else:
             s = f"{self.value}"
 
-        if self.context_info and self.context_info.get("text"):
-            s += f": {self.context_info["text"]}"
+        if self.context_info:
+            s += f": {self.context_info}"
         elif self.value in ERROR_RESPONSES:
             s += f": {ERROR_RESPONSES[self.value]}"
 

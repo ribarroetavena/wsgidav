@@ -122,8 +122,7 @@ class ErrorPrinter(BaseMiddleware):
             )
 
             if (
-                 e.context_info
-                 and e.context_info.get("is_head_method")
+                not e.add_body
             ):
                 yield b""
                 return
