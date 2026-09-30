@@ -155,7 +155,7 @@ class RequestServer:
         """Wrapper to raise (and log) DAVError."""
         util.fail(
             value,
-            context_info=context_info,
+            context_info,
             src_exception=src_exception,
             err_condition=err_condition,
             add_body=not is_head_method,
@@ -1508,7 +1508,7 @@ class RequestServer:
         return self._send_resource(environ, start_response)
 
     def do_HEAD(self, environ, start_response):
-        return self._send_resource(environ, start_response, is_head_method=True)
+        return self._send_resource(environ, start_response, True)
 
     def _send_resource(self, environ, start_response, is_head_method=False):
         """

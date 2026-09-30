@@ -985,7 +985,7 @@ def fail(
     else:
         e = DAVError(
             value,
-            context_info=context_info,
+            context_info,
             src_exception=src_exception,
             err_condition=err_condition,
             add_headers=add_headers,
